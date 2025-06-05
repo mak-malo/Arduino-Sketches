@@ -1,0 +1,76 @@
+#include <Adafruit_NeoPixel.h>
+
+int const all_max = 255;
+int const wh_ligmin = 0;
+int const wh_ligmax = all_max;  //(0, 0, 0, lig)
+int const red_ligmin = 0;
+int const red_ligmax = all_max; //(lig, 0, 0, 0)
+int const gr_ligmin = 0;
+int const gr_ligmax = all_max;  //(0, lig, 0, 0)
+int const bl_ligmin = 0;
+int const bl_ligmax = all_max;  //(0, 0, lig, 0)
+
+#define PIN 6        // Пин данных
+#define NUMPIXELS 1  // Кол-во светодиодов
+
+// GRBW — особый порядок, поддерживаемый этой моделью
+Adafruit_NeoPixel strip(NUMPIXELS, PIN, NEO_GRBW + NEO_KHZ800);
+
+void setup() {
+  strip.begin();     
+  strip.show();      // Очистить (все пиксели = 0)
+}
+
+void loop() {
+  cycle();
+}
+
+void cycle(){
+  for (int lig = wh_ligmin; lig < wh_ligmax; lig ++){
+    strip.setPixelColor(0, strip.Color(0, 0, 0, lig)); // Только белый
+    strip.show();      
+    delay(8);
+  }
+  
+  for (int lig = wh_ligmax; lig > wh_ligmin; lig --){
+    strip.setPixelColor(0, strip.Color(0, 0, 0, lig)); // Только белый
+    strip.show();      
+    delay(8);
+  }
+
+  for (int lig = red_ligmin; lig < red_ligmax; lig ++){
+    strip.setPixelColor(0, strip.Color(lig, 0, lig, 0)); // Только красный
+    strip.show();      
+    delay(8);
+  }
+  
+  for (int lig = red_ligmax; lig > red_ligmin; lig --){
+    strip.setPixelColor(0, strip.Color(lig, 0, lig, 0)); // Только красный
+    strip.show();      
+    delay(8);
+  }
+  
+  for (int lig = gr_ligmin; lig < gr_ligmax; lig ++){
+    strip.setPixelColor(0, strip.Color(0, lig, 0, 0)); // Только зеленый
+    strip.show();      
+    delay(8);
+  }
+  
+  for (int lig = gr_ligmax; lig > gr_ligmin; lig --){
+    strip.setPixelColor(0, strip.Color(0, lig, 0, 0)); // Только зеленый
+    strip.show();      
+    delay(8);
+  }
+  
+  for (int lig = bl_ligmin; lig < bl_ligmax; lig ++){
+    strip.setPixelColor(0, strip.Color(0, 0, lig, 0)); // Только синий
+    strip.show();      
+    delay(8);
+  }
+  
+  for (int lig = bl_ligmax; lig > bl_ligmin; lig --){
+    strip.setPixelColor(0, strip.Color(0, 0, lig, 0)); // Только синий
+    strip.show();      
+    delay(8);
+  }
+}
